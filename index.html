@@ -183,8 +183,9 @@
         </div>
     </div>
 
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- 1. 3D T-SHIRT WITH HOVER INTENSITY ---
+        // --- 1. 3D T-SHIRT RENDERING & ROTATION ---
         let redLight;
         function init3D() {
             const container = document.getElementById('canvas-container');
@@ -237,7 +238,7 @@
             modelWrapper.addEventListener('mouseenter', () => { redLight.intensity = 5.5; });
             modelWrapper.addEventListener('mouseleave', () => { redLight.intensity = 2.5; });
 
-            // Drag State Variables
+            // Drag State Variables (Hybrid Auto-rotate & Manual Drag)
             let isDragging = false;
             let previousMousePosition = { x: 0, y: 0 };
             let autoRotateSpeed = 0.005;
@@ -256,6 +257,21 @@
 
             window.addEventListener('mouseup', () => { isDragging = false; });
 
+            // Touch support for mobiles
+            container.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.touches[0].clientX - previousMousePosition.x;
+                tshirtGroup.rotation.y += deltaX * 0.008;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+
+            window.addEventListener('touchend', () => { isDragging = false; });
+
             window.addEventListener('resize', () => {
                 camera.aspect = container.clientWidth / container.clientHeight;
                 camera.updateProjectionMatrix();
@@ -272,7 +288,7 @@
             animate();
         }
 
-        // --- 2. PRODUCTS ARRAY ---
+        // --- 2. PRODUCTS CATALOG DATA ---
         const products = [
             { id: 1, name: "SHADOW KANJI HEAVYWEIGHT TEE", price: 45.00, tag: "BESTSELLER", imageUrl: "" },
             { id: 2, name: "BLOOD MOON TOKYO OVERSIZED TEE", price: 50.00, tag: "LIMITED", imageUrl: "" },
@@ -350,10 +366,4 @@
                 itemsContainer.innerHTML = `<p class="text-gray-500 text-center py-8 text-sm">YOUR CART IS EMPTY</p>`;
             } else {
                 itemsContainer.innerHTML = cart.map(item => `
-                    <div class="flex items-center justify-between bg-neoBlack p-4 rounded-xl border border-red-900/25">
-                        <div>
-                            <h4 class="text-xs font-bold text-white">${item.name}</h4>
-                            <p class="text-crimsonRed text-sm mt-1">$${item.price.toFixed(2)} x ${item.qty}</p>
-                        </div>
-                        <button onclick="removeFromCart(${item.id})" class="text-gray-500 hover:text-crimsonRed">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                    <div class="flex items-cen
