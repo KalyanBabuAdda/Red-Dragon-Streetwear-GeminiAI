@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZENSIGN | Neo-Tokyo Apparel</title>
-    <!-- Tailwind CSS for rapid, clean styling -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Three.js for 3D T-Shirt rendering -->
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
@@ -35,12 +35,10 @@
             font-family: 'Noto Sans JP', sans-serif;
             overflow-x: hidden;
         }
-        /* Japanese pattern overlay */
         .jp-bg-pattern {
             background-image: radial-gradient(rgba(255, 30, 56, 0.08) 1px, transparent 1px);
             background-size: 32px 32px;
         }
-        /* Floating animation for 3D container */
         @keyframes floatEffect {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-15px) rotate(1deg); }
@@ -48,22 +46,14 @@
         .floating-container {
             animation: floatEffect 6s ease-in-out infinite;
         }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0c;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #b3001b;
-            border-radius: 4px;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #b3001b; border-radius: 4px; }
     </style>
 </head>
 <body class="jp-bg-pattern min-h-screen flex flex-col justify-between">
 
-    <!-- HEADER / NAVIGATION -->
+    <!-- HEADER -->
     <header class="fixed top-0 left-0 w-full z-50 bg-neoBlack/80 backdrop-blur-md border-b border-red-900/30">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -87,13 +77,11 @@
         </div>
     </header>
 
-    <!-- HERO SECTION WITH 3D T-SHIRT -->
+    <!-- HERO SECTION -->
     <section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
-        <!-- Ambient background glow elements -->
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-crimsonRed/10 rounded-full blur-3xl pointer-events-none"></div>
         
         <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <!-- Text Content -->
             <div class="space-y-6 z-10 text-center lg:text-left">
                 <div class="inline-flex items-center space-x-2 bg-cardBlack border border-red-900/40 px-4 py-1.5 rounded-full">
                     <span class="w-2 h-2 rounded-full bg-crimsonRed animate-pulse"></span>
@@ -103,35 +91,29 @@
                     SHADOW & <span class="text-crimsonRed drop-shadow-[0_0_15px_rgba(255,30,56,0.4)]">SPIRIT</span>
                 </h1>
                 <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-light">
-                    Merging traditional Japanese cyberpunk elements with ultra-premium heavyweight cotton. Inspect the 3D artifact floating live on screen.
+                    Merging traditional Japanese cyberpunk elements with ultra-premium heavyweight cotton. Drag the 3D model below to rotate it manually.
                 </p>
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
                     <a href="#shop" class="w-full sm:w-auto bg-crimsonRed hover:bg-deepRed text-white font-cyber px-8 py-4 rounded-xl font-bold tracking-wider transition-all shadow-[0_0_20px_rgba(255,30,56,0.3)] text-center">
                         EXPLORE DROP
                     </a>
-                    <a href="#about" class="w-full sm:w-auto bg-cardBlack hover:bg-black border border-red-900/50 text-gray-300 hover:text-white font-cyber px-8 py-4 rounded-xl font-bold tracking-wider transition-all text-center">
-                        OUR HERITAGE
-                    </a>
                 </div>
             </div>
 
-            <!-- 3D T-Shirt Interactive Canvas Display -->
+            <!-- 3D Canvas -->
             <div class="relative flex items-center justify-center">
                 <div class="floating-container relative w-full h-[380px] sm:h-[480px] flex items-center justify-center bg-cardBlack/40 border border-red-900/20 rounded-3xl backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.8)]">
-                    <!-- Three.js Canvas Injection Point -->
                     <div id="canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
-                    
-                    <!-- Floating badge indicator -->
-                    <div class="absolute bottom-4 left-4 bg-neoBlack/80 border border-red-900/40 px-3 py-1.5 rounded-lg text-xs font-cyber tracking-wider text-gray-400 flex items-center space-x-2">
-                        <svg class="w-4 h-4 text-crimsonRed animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                        <span>INTERACTIVE 3D MODEL (DRAG TO ROTATE)</span>
+                    <div class="absolute bottom-4 left-4 bg-neoBlack/80 border border-red-900/40 px-3 py-1.5 rounded-lg text-xs font-cyber tracking-wider text-gray-400 flex items-center space-x-2 pointer-events-none">
+                        <span class="w-2 h-2 rounded-full bg-crimsonRed"></span>
+                        <span>DRAG TO ROTATE (AUTO-ROTATES)</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PRODUCT CATALOG SECTION -->
+    <!-- PRODUCT CATALOG SECTION (READY FOR YOUR IMAGES) -->
     <section id="shop" class="py-20 bg-cardBlack/20 border-t border-red-900/20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
@@ -142,35 +124,24 @@
 
             <!-- Product Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
-                <!-- Products dynamically populated via JavaScript -->
+                <!-- Populated dynamically via JS -->
             </div>
         </div>
     </section>
 
-    <!-- BRAND LORE SECTION -->
+    <!-- BRAND LORE -->
     <section id="about" class="py-20 border-t border-red-900/20 relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="space-y-6">
                 <span class="text-crimsonRed font-cyber tracking-widest text-xs uppercase">DESIGN PHILOSOPHY</span>
                 <h3 class="text-3xl font-black font-cyber tracking-wide">TRADITION MEETS CYBERPUNK</h3>
                 <p class="text-gray-400 leading-relaxed font-light">
-                    ZENSIGN draws inspiration from the silent discipline of feudal warriors and the neon-drenched concrete labyrinths of Neo-Tokyo. Each garment is engineered with high-density fabrics, stark black bases, and blood-red signatures designed to endure the elements.
+                    ZENSIGN draws inspiration from the silent discipline of feudal warriors and neon-drenched architecture. Each garment is engineered with high-density fabrics and stark color profiles.
                 </p>
-                <div class="grid grid-cols-2 gap-6 pt-4 font-cyber">
-                    <div class="border-l-2 border-crimsonRed pl-4">
-                        <h4 class="text-2xl font-bold text-white">100%</h4>
-                        <p class="text-xs text-gray-500 tracking-wider mt-1">HEAVYWEIGHT COTTON</p>
-                    </div>
-                    <div class="border-l-2 border-crimsonRed pl-4">
-                        <h4 class="text-2xl font-bold text-white">LIMITED</h4>
-                        <p class="text-xs text-gray-500 tracking-wider mt-1">BATCH RELEASES</p>
-                    </div>
-                </div>
             </div>
             <div class="bg-cardBlack border border-red-900/30 p-8 rounded-3xl relative">
-                <div class="absolute -top-4 -right-4 bg-crimsonRed text-white text-xs font-cyber px-4 py-2 rounded-xl font-bold">LIMITED EDITION</div>
                 <p class="font-jp text-2xl text-gray-300 font-bold mb-4">「 影と精神 」</p>
-                <p class="text-gray-400 text-sm italic">"In the heart of the neon night, the spirit remains unyielding and quiet like the shadows."</p>
+                <p class="text-gray-400 text-sm italic">"In the heart of the neon night, the spirit remains unyielding."</p>
             </div>
         </div>
     </section>
@@ -182,15 +153,10 @@
                 <span class="text-crimsonRed font-cyber font-black text-xl tracking-widest">禅 SIGN</span>
                 <p class="text-xs text-gray-500 mt-1">© 2026 ZENSIGN APPAREL. ALL RIGHTS RESERVED.</p>
             </div>
-            <div class="flex space-x-6 text-sm font-cyber text-gray-400">
-                <a href="#" class="hover:text-crimsonRed transition-colors">TERMS</a>
-                <a href="#" class="hover:text-crimsonRed transition-colors">PRIVACY</a>
-                <a href="#" class="hover:text-crimsonRed transition-colors">SUPPORT</a>
-            </div>
         </div>
     </footer>
 
-    <!-- SHOPPING CART SLIDE-OVER DRAWER -->
+    <!-- CART DRAWER -->
     <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm pointer-events-auto" onclick="toggleCart()"></div>
         <div class="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-none">
@@ -202,18 +168,14 @@
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
                     </div>
-                    <!-- Cart Item List -->
-                    <div id="cart-items" class="mt-6 space-y-4 max-h-[50vh] overflow-y-auto pr-2">
-                        <!-- Populated via JS -->
-                    </div>
+                    <div id="cart-items" class="mt-6 space-y-4 max-h-[50vh] overflow-y-auto pr-2"></div>
                 </div>
-                <!-- Cart Summary & Checkout -->
                 <div class="pt-6 border-t border-red-900/30 space-y-4">
                     <div class="flex justify-between items-center font-cyber">
                         <span class="text-gray-400 text-sm">TOTAL:</span>
                         <span id="cart-total" class="text-crimsonRed font-bold text-xl">$0.00</span>
                     </div>
-                    <button onclick="checkout()" class="w-full bg-crimsonRed hover:bg-deepRed text-white font-cyber py-4 rounded-xl font-bold tracking-wider transition-colors shadow-[0_0_15px_rgba(255,30,56,0.3)]">
+                    <button onclick="checkout()" class="w-full bg-crimsonRed hover:bg-deepRed text-white font-cyber py-4 rounded-xl font-bold tracking-wider transition-colors">
                         PROCEED TO CHECKOUT
                     </button>
                 </div>
@@ -221,9 +183,8 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // --- 1. THREE.JS 3D T-SHIRT SIMULATION ---
+        // --- 1. 3D T-SHIRT WITH HYBRID AUTO & MANUAL ROTATION ---
         function init3D() {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
@@ -236,7 +197,6 @@
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             container.appendChild(renderer.domElement);
 
-            // Lighting setup for dramatic black & red contrast
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
             scene.add(ambientLight);
 
@@ -244,60 +204,38 @@
             redLight.position.set(3, 2, 3);
             scene.add(redLight);
 
-            const backLight = new THREE.PointLight(0xb3001b, 2, 10);
-            backLight.position.set(-3, -2, -2);
-            scene.add(backLight);
-
-            // Constructing a stylized 3D T-Shirt mesh assembly
             const tshirtGroup = new THREE.Group();
 
-            const fabricMaterial = new THREE.MeshStandardMaterial({
-                color: 0x121217,
-                roughness: 0.8,
-                metalness: 0.2
-            });
+            const fabricMaterial = new THREE.MeshStandardMaterial({ color: 0x121217, roughness: 0.8, metalness: 0.2 });
+            const accentMaterial = new THREE.MeshStandardMaterial({ color: 0xff1e38, roughness: 0.5, metalness: 0.4 });
 
-            const accentMaterial = new THREE.MeshStandardMaterial({
-                color: 0xff1e38,
-                roughness: 0.5,
-                metalness: 0.4
-            });
-
-            // Torso
-            const torsoGeo = new THREE.BoxGeometry(1.6, 2.1, 0.6);
-            const torso = new THREE.Mesh(torsoGeo, fabricMaterial);
+            // Mesh geometry assembly
+            const torso = new THREE.Mesh(new THREE.BoxGeometry(1.6, 2.1, 0.6), fabricMaterial);
             tshirtGroup.add(torso);
 
-            // Left Sleeve
             const sleeveGeo = new THREE.BoxGeometry(0.8, 0.6, 0.5);
             const leftSleeve = new THREE.Mesh(sleeveGeo, fabricMaterial);
-            leftSleeve.position.set(-1.1, 0.7, 0);
-            leftSleeve.rotation.z = -Math.PI / 8;
+            leftSleeve.position.set(-1.1, 0.7, 0); leftSleeve.rotation.z = -Math.PI / 8;
             tshirtGroup.add(leftSleeve);
 
-            // Right Sleeve
             const rightSleeve = new THREE.Mesh(sleeveGeo, fabricMaterial);
-            rightSleeve.position.set(1.1, 0.7, 0);
-            rightSleeve.rotation.z = Math.PI / 8;
+            rightSleeve.position.set(1.1, 0.7, 0); rightSleeve.rotation.z = Math.PI / 8;
             tshirtGroup.add(rightSleeve);
 
-            // Red collar accent band
-            const collarGeo = new THREE.BoxGeometry(0.8, 0.15, 0.62);
-            const collar = new THREE.Mesh(collarGeo, accentMaterial);
+            const collar = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.15, 0.62), accentMaterial);
             collar.position.set(0, 1.02, 0);
             tshirtGroup.add(collar);
 
-            // Chest Kanji Symbol Badge block (Simulated Kanji Embellishment)
-            const badgeGeo = new THREE.BoxGeometry(0.4, 0.4, 0.05);
-            const badge = new THREE.Mesh(badgeGeo, accentMaterial);
+            const badge = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.05), accentMaterial);
             badge.position.set(0, 0.3, 0.32);
             tshirtGroup.add(badge);
 
             scene.add(tshirtGroup);
 
-            // Mouse Drag Interaction Variables
+            // Drag State Variables
             let isDragging = false;
             let previousMousePosition = { x: 0, y: 0 };
+            let autoRotateSpeed = 0.005;
 
             container.addEventListener('mousedown', (e) => {
                 isDragging = true;
@@ -306,37 +244,71 @@
 
             window.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
-                const deltaX = e.clientX - previousMousePosition.previousX || e.clientX - previousMousePosition.x;
+                const deltaX = e.clientX - previousMousePosition.x;
                 
+                // Instantly update rotation based on drag movement
                 tshirtGroup.rotation.y += deltaX * 0.008;
                 previousMousePosition = { x: e.clientX, y: e.clientY };
             });
 
             window.addEventListener('mouseup', () => { isDragging = false; });
 
-            // Responsive Window Handling
+            // Touch support for mobile devices
+            container.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.touches[0].clientX - previousMousePosition.x;
+                tshirtGroup.rotation.y += deltaX * 0.008;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+
+            window.addEventListener('touchend', () => { isDragging = false; });
+
             window.addEventListener('resize', () => {
                 camera.aspect = container.clientWidth / container.clientHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(container.clientWidth, container.clientHeight);
             });
 
-            // Animation Loop
+            // Animation Loop: Auto-rotates constantly unless actively being dragged
             function animate() {
                 requestAnimationFrame(animate);
                 if (!isDragging) {
-                    tshirtGroup.rotation.y += 0.005; // Gentle auto-rotation
+                    tshirtGroup.rotation.y += autoRotateSpeed;
                 }
                 renderer.render(scene, camera);
             }
             animate();
         }
 
-        // --- 2. E-COMMERCE PRODUCTS & CART SYSTEM ---
+        // --- 2. PRODUCTS ARRAY (EDIT NAMES, PRICES, AND IMAGE URLs HERE) ---
         const products = [
-            { id: 1, name: "SHADOW KANJI HEAVYWEIGHT TEE", price: 45.00, tag: "BESTSELLER", imageColor: "bg-[#16161c]" },
-            { id: 2, name: "BLOOD MOON TOKYO OVERSIZED TEE", price: 50.00, tag: "LIMITED", imageColor: "bg-[#1c1215]" },
-            { id: 3, name: "SAMURAI DRIFT GRAPHIC TEE", price: 48.00, tag: "NEW", imageColor: "bg-[#141419]" }
+            { 
+                id: 1, 
+                name: "SHADOW KANJI HEAVYWEIGHT TEE", 
+                price: 45.00, 
+                tag: "BESTSELLER", 
+                // To use your own image, replace the string below with your image URL e.g. "https://yourwebsite.com/image1.jpg"
+                imageUrl: "" 
+            },
+            { 
+                id: 2, 
+                name: "BLOOD MOON TOKYO OVERSIZED TEE", 
+                price: 50.00, 
+                tag: "LIMITED", 
+                imageUrl: "" 
+            },
+            { 
+                id: 3, 
+                name: "SAMURAI DRIFT GRAPHIC TEE", 
+                price: 48.00, 
+                tag: "NEW", 
+                imageUrl: "" 
+            }
         ];
 
         let cart = [];
@@ -345,13 +317,16 @@
             const grid = document.getElementById('product-grid');
             grid.innerHTML = products.map(p => `
                 <div class="bg-cardBlack border border-red-900/30 rounded-3xl p-6 flex flex-col justify-between group hover:border-crimsonRed transition-all duration-300 shadow-lg">
-                    <div class="relative ${p.imageColor} h-64 rounded-2xl flex items-center justify-center overflow-hidden border border-red-900/10 mb-6">
-                        <span class="absolute top-3 left-3 bg-crimsonRed/90 text-white font-cyber text-[10px] px-3 py-1 rounded-full font-bold tracking-wider">${p.tag}</span>
-                        <!-- Abstract T-Shirt Silhouette Placeholder -->
-                        <div class="w-32 h-36 bg-neoBlack border border-red-900/40 rounded-xl relative flex items-center justify-center group-hover:scale-105 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-                            <div class="w-10 h-3 bg-crimsonRed/80 rounded-sm absolute top-4"></div>
-                            <span class="font-cyber font-black text-crimsonRed text-xl opacity-80">禅</span>
-                        </div>
+                    <div class="relative bg-[#16161c] h-64 rounded-2xl flex items-center justify-center overflow-hidden border border-red-900/10 mb-6">
+                        <span class="absolute top-3 left-3 bg-crimsonRed/90 text-white font-cyber text-[10px] px-3 py-1 rounded-full font-bold tracking-wider z-10">${p.tag}</span>
+                        
+                        ${p.imageUrl ? 
+                            `<img src="${p.imageUrl}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : 
+                            `<div class="w-32 h-36 bg-neoBlack border border-red-900/40 rounded-xl relative flex items-center justify-center group-hover:scale-105 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                                <div class="w-10 h-3 bg-crimsonRed/80 rounded-sm absolute top-4"></div>
+                                <span class="font-cyber font-black text-crimsonRed text-xl opacity-80">禅</span>
+                             </div>`
+                        }
                     </div>
                     <div>
                         <h3 class="font-cyber font-bold text-base text-white tracking-wider mb-2">${p.name}</h3>
@@ -432,13 +407,12 @@
                 alert("Your cart is empty.");
                 return;
             }
-            alert("Order placed successfully! Thank you for ordering from ZENSIGN.");
+            alert("Order placed successfully! Thank you for ordering.");
             cart = [];
             updateCartUI();
             toggleCart();
         }
 
-        // Initialize App
         window.addEventListener('DOMContentLoaded', () => {
             init3D();
             renderProducts();
