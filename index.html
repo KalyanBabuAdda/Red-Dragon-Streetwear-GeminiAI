@@ -8,8 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Professional Google Fonts: Montserrat & Zen Kaku Gothic New -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -21,8 +21,8 @@
                         deepRed: '#b3001b',
                     },
                     fontFamily: {
-                        cyber: ['Orbitron', 'sans-serif'],
-                        jp: ['Noto Sans JP', 'sans-serif'],
+                        sans: ['Montserrat', 'Zen Kaku Gothic New', 'sans-serif'],
+                        jp: ['Zen Kaku Gothic New', 'sans-serif'],
                     }
                 }
             }
@@ -32,7 +32,7 @@
         body {
             background-color: #0a0a0c;
             color: #f3f4f6;
-            font-family: 'Noto Sans JP', sans-serif;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
             overflow-x: hidden;
         }
         .jp-bg-pattern {
@@ -54,13 +54,13 @@
 <body class="jp-bg-pattern min-h-screen flex flex-col justify-between">
 
     <!-- HEADER -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-neoBlack/80 backdrop-blur-md border-b border-red-900/30">
+    <header class="fixed top-0 left-0 w-full z-50 bg-neoBlack/85 backdrop-blur-md border-b border-red-900/30">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <span class="text-crimsonRed font-cyber font-black text-2xl tracking-widest">禅 SIGN</span>
-                <span class="text-xs text-gray-500 font-jp tracking-widest uppercase hidden sm:inline">ネオ東京</span>
+                <span class="text-crimsonRed font-black text-2xl tracking-widest">禅 SIGN</span>
+                <span class="text-xs text-gray-500 tracking-widest uppercase hidden sm:inline">ネオ東京</span>
             </div>
-            <nav class="hidden md:flex space-x-8 font-cyber text-sm tracking-wider">
+            <nav class="hidden md:flex space-x-8 text-sm tracking-widest font-semibold">
                 <a href="#hero" class="hover:text-crimsonRed transition-colors">HOME</a>
                 <a href="#shop" class="hover:text-crimsonRed transition-colors">COLLECTION</a>
                 <a href="#about" class="hover:text-crimsonRed transition-colors">LORE</a>
@@ -71,7 +71,7 @@
                     <svg class="w-5 h-5 text-gray-300 group-hover:text-crimsonRed transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                     </svg>
-                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-crimsonRed text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-cyber font-bold hidden">0</span>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-crimsonRed text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
                 </button>
             </div>
         </div>
@@ -85,39 +85,39 @@
             <div class="space-y-6 z-10 text-center lg:text-left">
                 <div class="inline-flex items-center space-x-2 bg-cardBlack border border-red-900/40 px-4 py-1.5 rounded-full">
                     <span class="w-2 h-2 rounded-full bg-crimsonRed animate-pulse"></span>
-                    <span class="text-xs font-cyber tracking-widest text-red-400">SUMMER DROP 2026</span>
+                    <span class="text-xs tracking-widest text-red-400 font-semibold">SUMMER DROP 2026</span>
                 </div>
-                <h1 class="text-4xl sm:text-6xl font-black font-cyber tracking-wider leading-tight">
+                <h1 class="text-4xl sm:text-6xl font-black tracking-wider leading-tight">
                     SHADOW & <span class="text-crimsonRed drop-shadow-[0_0_15px_rgba(255,30,56,0.4)]">SPIRIT</span>
                 </h1>
                 <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-light">
-                    Merging traditional Japanese cyberpunk elements with ultra-premium heavyweight cotton. Drag the 3D model below to rotate it manually.
+                    Merging traditional Japanese cyberpunk elements with ultra-premium heavyweight cotton. Hover over the 3D model below to intensify the ambient glow.
                 </p>
                 <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
-                    <a href="#shop" class="w-full sm:w-auto bg-crimsonRed hover:bg-deepRed text-white font-cyber px-8 py-4 rounded-xl font-bold tracking-wider transition-all shadow-[0_0_20px_rgba(255,30,56,0.3)] text-center">
+                    <a href="#shop" class="w-full sm:w-auto bg-crimsonRed hover:bg-deepRed text-white px-8 py-4 rounded-xl font-bold tracking-wider transition-all shadow-[0_0_20px_rgba(255,30,56,0.3)] text-center">
                         EXPLORE DROP
                     </a>
                 </div>
             </div>
 
-            <!-- 3D Canvas -->
+            <!-- 3D Canvas Container with Hover Glow Effect -->
             <div class="relative flex items-center justify-center">
-                <div class="floating-container relative w-full h-[380px] sm:h-[480px] flex items-center justify-center bg-cardBlack/40 border border-red-900/20 rounded-3xl backdrop-blur-sm shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+                <div id="model-wrapper" class="floating-container relative w-full h-[380px] sm:h-[480px] flex items-center justify-center bg-cardBlack/40 border border-red-900/20 rounded-3xl backdrop-blur-sm transition-all duration-500 hover:border-crimsonRed hover:shadow-[0_0_60px_rgba(255,30,56,0.35)]">
                     <div id="canvas-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
-                    <div class="absolute bottom-4 left-4 bg-neoBlack/80 border border-red-900/40 px-3 py-1.5 rounded-lg text-xs font-cyber tracking-wider text-gray-400 flex items-center space-x-2 pointer-events-none">
+                    <div class="absolute bottom-4 left-4 bg-neoBlack/80 border border-red-900/40 px-3 py-1.5 rounded-lg text-xs tracking-wider text-gray-400 flex items-center space-x-2 pointer-events-none">
                         <span class="w-2 h-2 rounded-full bg-crimsonRed"></span>
-                        <span>DRAG TO ROTATE (AUTO-ROTATES)</span>
+                        <span>INTERACTIVE 3D MODEL</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- PRODUCT CATALOG SECTION (READY FOR YOUR IMAGES) -->
+    <!-- PRODUCT CATALOG SECTION -->
     <section id="shop" class="py-20 bg-cardBlack/20 border-t border-red-900/20">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-                <h2 class="text-3xl sm:text-4xl font-black font-cyber tracking-wider">THE COLLECTION</h2>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-wider">THE COLLECTION</h2>
                 <div class="w-16 h-1 bg-crimsonRed mx-auto"></div>
                 <p class="text-gray-400 text-sm">Crafted for modern urban ninjas. Limited stock available.</p>
             </div>
@@ -133,8 +133,8 @@
     <section id="about" class="py-20 border-t border-red-900/20 relative overflow-hidden">
         <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div class="space-y-6">
-                <span class="text-crimsonRed font-cyber tracking-widest text-xs uppercase">DESIGN PHILOSOPHY</span>
-                <h3 class="text-3xl font-black font-cyber tracking-wide">TRADITION MEETS CYBERPUNK</h3>
+                <span class="text-crimsonRed tracking-widest text-xs font-bold uppercase">DESIGN PHILOSOPHY</span>
+                <h3 class="text-3xl font-black tracking-wide">TRADITION MEETS CYBERPUNK</h3>
                 <p class="text-gray-400 leading-relaxed font-light">
                     ZENSIGN draws inspiration from the silent discipline of feudal warriors and neon-drenched architecture. Each garment is engineered with high-density fabrics and stark color profiles.
                 </p>
@@ -150,7 +150,7 @@
     <footer id="contact" class="bg-neoBlack border-t border-red-900/30 py-12">
         <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
             <div>
-                <span class="text-crimsonRed font-cyber font-black text-xl tracking-widest">禅 SIGN</span>
+                <span class="text-crimsonRed font-black text-xl tracking-widest">禅 SIGN</span>
                 <p class="text-xs text-gray-500 mt-1">© 2026 ZENSIGN APPAREL. ALL RIGHTS RESERVED.</p>
             </div>
         </div>
@@ -163,7 +163,7 @@
             <div id="cart-panel" class="w-screen max-w-md bg-cardBlack border-l border-red-900/40 p-6 flex flex-col justify-between pointer-events-auto transform translate-x-full transition-transform duration-300">
                 <div>
                     <div class="flex items-center justify-between pb-6 border-b border-red-900/30">
-                        <h3 class="font-cyber font-bold text-lg tracking-wider text-white">YOUR CART</h3>
+                        <h3 class="font-bold text-lg tracking-wider text-white">YOUR CART</h3>
                         <button onclick="toggleCart()" class="text-gray-400 hover:text-crimsonRed">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
@@ -171,11 +171,11 @@
                     <div id="cart-items" class="mt-6 space-y-4 max-h-[50vh] overflow-y-auto pr-2"></div>
                 </div>
                 <div class="pt-6 border-t border-red-900/30 space-y-4">
-                    <div class="flex justify-between items-center font-cyber">
+                    <div class="flex justify-between items-center">
                         <span class="text-gray-400 text-sm">TOTAL:</span>
                         <span id="cart-total" class="text-crimsonRed font-bold text-xl">$0.00</span>
                     </div>
-                    <button onclick="checkout()" class="w-full bg-crimsonRed hover:bg-deepRed text-white font-cyber py-4 rounded-xl font-bold tracking-wider transition-colors">
+                    <button onclick="checkout()" class="w-full bg-crimsonRed hover:bg-deepRed text-white py-4 rounded-xl font-bold tracking-wider transition-colors">
                         PROCEED TO CHECKOUT
                     </button>
                 </div>
@@ -184,7 +184,8 @@
     </div>
 
     <script>
-        // --- 1. 3D T-SHIRT WITH HYBRID AUTO & MANUAL ROTATION ---
+        // --- 1. 3D T-SHIRT WITH HOVER INTENSITY ---
+        let redLight;
         function init3D() {
             const container = document.getElementById('canvas-container');
             const scene = new THREE.Scene();
@@ -200,7 +201,7 @@
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
             scene.add(ambientLight);
 
-            const redLight = new THREE.PointLight(0xff1e38, 3, 10);
+            redLight = new THREE.PointLight(0xff1e38, 2.5, 10);
             redLight.position.set(3, 2, 3);
             scene.add(redLight);
 
@@ -209,7 +210,6 @@
             const fabricMaterial = new THREE.MeshStandardMaterial({ color: 0x121217, roughness: 0.8, metalness: 0.2 });
             const accentMaterial = new THREE.MeshStandardMaterial({ color: 0xff1e38, roughness: 0.5, metalness: 0.4 });
 
-            // Mesh geometry assembly
             const torso = new THREE.Mesh(new THREE.BoxGeometry(1.6, 2.1, 0.6), fabricMaterial);
             tshirtGroup.add(torso);
 
@@ -232,6 +232,11 @@
 
             scene.add(tshirtGroup);
 
+            // Hover light boost listeners
+            const modelWrapper = document.getElementById('model-wrapper');
+            modelWrapper.addEventListener('mouseenter', () => { redLight.intensity = 5.5; });
+            modelWrapper.addEventListener('mouseleave', () => { redLight.intensity = 2.5; });
+
             // Drag State Variables
             let isDragging = false;
             let previousMousePosition = { x: 0, y: 0 };
@@ -245,28 +250,11 @@
             window.addEventListener('mousemove', (e) => {
                 if (!isDragging) return;
                 const deltaX = e.clientX - previousMousePosition.x;
-                
-                // Instantly update rotation based on drag movement
                 tshirtGroup.rotation.y += deltaX * 0.008;
                 previousMousePosition = { x: e.clientX, y: e.clientY };
             });
 
             window.addEventListener('mouseup', () => { isDragging = false; });
-
-            // Touch support for mobile devices
-            container.addEventListener('touchstart', (e) => {
-                isDragging = true;
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            });
-
-            window.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                const deltaX = e.touches[0].clientX - previousMousePosition.x;
-                tshirtGroup.rotation.y += deltaX * 0.008;
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            });
-
-            window.addEventListener('touchend', () => { isDragging = false; });
 
             window.addEventListener('resize', () => {
                 camera.aspect = container.clientWidth / container.clientHeight;
@@ -274,7 +262,6 @@
                 renderer.setSize(container.clientWidth, container.clientHeight);
             });
 
-            // Animation Loop: Auto-rotates constantly unless actively being dragged
             function animate() {
                 requestAnimationFrame(animate);
                 if (!isDragging) {
@@ -285,30 +272,11 @@
             animate();
         }
 
-        // --- 2. PRODUCTS ARRAY (EDIT NAMES, PRICES, AND IMAGE URLs HERE) ---
+        // --- 2. PRODUCTS ARRAY ---
         const products = [
-            { 
-                id: 1, 
-                name: "SHADOW KANJI HEAVYWEIGHT TEE", 
-                price: 45.00, 
-                tag: "BESTSELLER", 
-                // To use your own image, replace the string below with your image URL e.g. "https://yourwebsite.com/image1.jpg"
-                imageUrl: "" 
-            },
-            { 
-                id: 2, 
-                name: "BLOOD MOON TOKYO OVERSIZED TEE", 
-                price: 50.00, 
-                tag: "LIMITED", 
-                imageUrl: "" 
-            },
-            { 
-                id: 3, 
-                name: "SAMURAI DRIFT GRAPHIC TEE", 
-                price: 48.00, 
-                tag: "NEW", 
-                imageUrl: "" 
-            }
+            { id: 1, name: "SHADOW KANJI HEAVYWEIGHT TEE", price: 45.00, tag: "BESTSELLER", imageUrl: "" },
+            { id: 2, name: "BLOOD MOON TOKYO OVERSIZED TEE", price: 50.00, tag: "LIMITED", imageUrl: "" },
+            { id: 3, name: "SAMURAI DRIFT GRAPHIC TEE", price: 48.00, tag: "NEW", imageUrl: "" }
         ];
 
         let cart = [];
@@ -316,23 +284,22 @@
         function renderProducts() {
             const grid = document.getElementById('product-grid');
             grid.innerHTML = products.map(p => `
-                <div class="bg-cardBlack border border-red-900/30 rounded-3xl p-6 flex flex-col justify-between group hover:border-crimsonRed transition-all duration-300 shadow-lg">
+                <div class="bg-cardBlack border border-red-900/30 rounded-3xl p-6 flex flex-col justify-between group hover:border-crimsonRed hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(255,30,56,0.25)] transition-all duration-300 shadow-lg">
                     <div class="relative bg-[#16161c] h-64 rounded-2xl flex items-center justify-center overflow-hidden border border-red-900/10 mb-6">
-                        <span class="absolute top-3 left-3 bg-crimsonRed/90 text-white font-cyber text-[10px] px-3 py-1 rounded-full font-bold tracking-wider z-10">${p.tag}</span>
-                        
+                        <span class="absolute top-3 left-3 bg-crimsonRed/90 text-white text-[10px] px-3 py-1 rounded-full font-bold tracking-wider z-10">${p.tag}</span>
                         ${p.imageUrl ? 
-                            `<img src="${p.imageUrl}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">` : 
-                            `<div class="w-32 h-36 bg-neoBlack border border-red-900/40 rounded-xl relative flex items-center justify-center group-hover:scale-105 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                            `<img src="${p.imageUrl}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">` : 
+                            `<div class="w-32 h-36 bg-neoBlack border border-red-900/40 rounded-xl relative flex items-center justify-center group-hover:scale-110 transition-transform duration-500 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                                 <div class="w-10 h-3 bg-crimsonRed/80 rounded-sm absolute top-4"></div>
-                                <span class="font-cyber font-black text-crimsonRed text-xl opacity-80">禅</span>
+                                <span class="font-black text-crimsonRed text-xl opacity-80">禅</span>
                              </div>`
                         }
                     </div>
                     <div>
-                        <h3 class="font-cyber font-bold text-base text-white tracking-wider mb-2">${p.name}</h3>
-                        <p class="font-cyber text-crimsonRed font-bold text-lg mb-4">$${p.price.toFixed(2)}</p>
+                        <h3 class="font-bold text-base text-white tracking-wider mb-2">${p.name}</h3>
+                        <p class="text-crimsonRed font-bold text-lg mb-4">$${p.price.toFixed(2)}</p>
                     </div>
-                    <button onclick="addToCart(${p.id})" class="w-full bg-neoBlack hover:bg-crimsonRed text-gray-200 hover:text-white border border-red-900/40 hover:border-crimsonRed font-cyber py-3 rounded-xl font-bold tracking-wider transition-all">
+                    <button onclick="addToCart(${p.id})" class="w-full bg-neoBlack hover:bg-crimsonRed text-gray-200 hover:text-white border border-red-900/40 hover:border-crimsonRed py-3 rounded-xl font-bold tracking-wider transition-all">
                         ADD TO CART
                     </button>
                 </div>
@@ -380,43 +347,13 @@
             }
 
             if (cart.length === 0) {
-                itemsContainer.innerHTML = `<p class="text-gray-500 text-center py-8 font-cyber text-sm">YOUR CART IS EMPTY</p>`;
+                itemsContainer.innerHTML = `<p class="text-gray-500 text-center py-8 text-sm">YOUR CART IS EMPTY</p>`;
             } else {
                 itemsContainer.innerHTML = cart.map(item => `
-                    <div class="flex items-center justify-between bg-neoBlack p-4 rounded-xl border border-red-900/20">
+                    <div class="flex items-center justify-between bg-neoBlack p-4 rounded-xl border border-red-900/25">
                         <div>
-                            <h4 class="font-cyber text-xs font-bold text-white">${item.name}</h4>
-                            <p class="text-crimsonRed font-cyber text-sm mt-1">$${item.price.toFixed(2)} x ${item.qty}</p>
+                            <h4 class="text-xs font-bold text-white">${item.name}</h4>
+                            <p class="text-crimsonRed text-sm mt-1">$${item.price.toFixed(2)} x ${item.qty}</p>
                         </div>
                         <button onclick="removeFromCart(${item.id})" class="text-gray-500 hover:text-crimsonRed">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                        </button>
-                    </div>
-                `).join('');
-            }
-            totalEl.textContent = `$${totalPrice.toFixed(2)}`;
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            updateCartUI();
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                alert("Your cart is empty.");
-                return;
-            }
-            alert("Order placed successfully! Thank you for ordering.");
-            cart = [];
-            updateCartUI();
-            toggleCart();
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            init3D();
-            renderProducts();
-        });
-    </script>
-</body>
-</html>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
