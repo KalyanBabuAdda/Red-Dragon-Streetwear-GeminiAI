@@ -365,4 +365,54 @@
 
             container.addEventListener('mousedown', (e) => {
                 isDragging = true;
-      
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.clientX - previousMousePosition.x;
+                tshirtGroup.rotation.y += deltaX * 0.008;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener('mouseup', () => { isDragging = false; });
+
+            container.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.touches[0].clientX - previousMousePosition.x;
+                tshirtGroup.rotation.y += deltaX * 0.008;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            });
+
+            window.addEventListener('touchend', () => { isDragging = false; });
+
+            window.addEventListener('resize', () => {
+                if (!container) return;
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                if (!isDragging) {
+                    tshirtGroup.rotation.y += 0.005;
+                }
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Initialize everything safely on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            init3D();
+        });
+    </script>
+</body>
+</html>
