@@ -221,6 +221,7 @@
                         <h3 class="font-bold text-base text-white tracking-wider mb-2">${p.name}</h3>
                         <p class="text-crimsonRed font-bold text-lg mb-4">$${p.price.toFixed(2)}</p>
                     </div>
+                    <!-- Removed toggleCart() so clicking 'Add to Cart' only adds the item without forcing checkout -->
                     <button onclick="addToCart(${p.id})" class="w-full bg-neoBlack hover:bg-crimsonRed text-gray-200 hover:text-white border border-red-900/40 hover:border-crimsonRed py-3 rounded-xl font-bold tracking-wider transition-all cursor-pointer">
                         ADD TO CART
                     </button>
@@ -252,7 +253,7 @@
                 cart.push({ ...product, qty: 1 });
             }
             updateCartUI();
-            toggleCart();
+            // Removed toggleCart() here so users can keep shopping smoothly
         }
 
         function updateCartUI() {
@@ -306,6 +307,7 @@
         }
 
         // --- 2. 3D T-SHIRT RENDERING SYSTEM ---
+        // --- 2. 3D T-SHIRT RENDERING SYSTEM ---
         function init3D() {
             const container = document.getElementById('canvas-container');
             if (!container) return;
@@ -352,14 +354,14 @@
 
             scene.add(tshirtGroup);
 
-            // Hover light adjustment
+            // Intense Red Light Hover Effect on Wrapper
             const modelWrapper = document.getElementById('model-wrapper');
             if (modelWrapper) {
                 modelWrapper.addEventListener('mouseenter', () => { redLight.intensity = 5.5; });
                 modelWrapper.addEventListener('mouseleave', () => { redLight.intensity = 2.5; });
             }
 
-            // Drag and rotation logic
+            // Robust Mouse & Touch Drag Rotation Logic
             let isDragging = false;
             let previousMousePosition = { x: 0, y: 0 };
 
@@ -377,17 +379,20 @@
 
             window.addEventListener('mouseup', () => { isDragging = false; });
 
+            // Mobile Touch Events
             container.addEventListener('touchstart', (e) => {
-                isDragging = true;
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            });
+                if(e.touches.length > 0) {
+                    isDragging = true;
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+            }, { passive: true });
 
             window.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
+                if (!isDragging || e.touches.length === 0) return;
                 const deltaX = e.touches[0].clientX - previousMousePosition.x;
                 tshirtGroup.rotation.y += deltaX * 0.008;
                 previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            });
+            }, { passive: true });
 
             window.addEventListener('touchend', () => { isDragging = false; });
 
