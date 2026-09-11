@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENSIGN | Neo-Tokyo Apparel</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Professional Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neoBlack: '#0a0a0c',
+                        cardBlack: '#121217',
+                        crimsonRed: '#ff1e38',
+                        deepRed: '#b3001b',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'Zen Kaku Gothic New', 'sans-serif'],
+                        jp: ['Zen Kaku Gothic New', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0a0c;
+            color: #f3f4f6;
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            overflow-x: hidden;
+        }
+        .jp-bg-pattern {
+            background-image: radial-gradient(rgba(255, 30, 56, 0.08) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        @keyframes floatEffect {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+        .floating-container {
+            animation: floatEffect 6s ease-in-out infinite;
+        }
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            min-height: 350px;
+            display: block;
+        }
+        /* Custom Glassmorphism Utility Enhancements */
+        .glass-card {
+            background: rgba(18, 18, 23, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 30, 56, 0.15);
+        }
+        .glass-panel {
+            background: rgba(10, 10, 12, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 30, 56, 0.2);
+        }
+        .glass-btn {
+            background: rgba(255, 30, 56, 0.12);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 30, 56, 0.3);
+        }
+        .glass-btn:hover {
+            background: rgba(255, 30, 56, 0.3);
+            border-color: rgba(255, 30, 56, 0.7);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #b3001b; border-radius: 4px; }
+    </style>
+</head>
+<body class="jp-bg-pattern min-h-screen flex flex-col justify-between">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#0a0a0c]/70 backdrop-blur-md border-b border-red-900/20">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <span class="text-crimsonRed font-black text-2xl tracking-widest drop-shadow-[0_0_10px_rgba(255,30,56,0.4)]">禅 SIGN</span>
+                <span class="text-xs text-gray-500 tracking-widest uppercase hidden sm:inline">ネオ東京</span>
+            </div>
+            <nav class="hidden md:flex space-x-8 text-sm tracking-widest font-semibold">
+                <a href="#hero" class="hover:text-crimsonRed transition-colors">HOME</a>
+                <a href="#shop" class="hover:text-crimsonRed transition-colors">COLLECTION</a>
+                <a href="#about" class="hover:text-crimsonRed transition-colors">LORE</a>
+                <a href="#contact" class="hover:text-crimsonRed transition-colors">CONTACT</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button onclick="toggleCart()" class="relative glass-card p-3 rounded-full hover:border-crimsonRed transition-colors group cursor-pointer shadow-lg">
+                    <svg class="w-5 h-5 text-gray-300 group-hover:text-crimsonRed transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-crimsonRed text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold hidden shadow-[0_0_10px_rgba(255,30,56,0.6)]">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-crimsonRed/15 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6 z-10 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 glass-card px-4 py-1.5 rounded-full shadow-lg">
+                    <span class="w-2 h-2 rounded-full bg-crimsonRed animate-pulse"></span>
+                    <span class="text-xs tracking-widest text-red-400 font-semibold">SUMMER DROP 2026</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-black tracking-wider leading-tight">
+                    SHADOW & <span class="text-crimsonRed drop-shadow-[0_0_15px_rgba(255,30,56,0.4)]">SPIRIT</span>
+                </h1>
+                <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 font-light">
+                    Merging traditional Japanese cyberpunk elements with ultra-premium heavyweight cotton. Hover over the 3D model below to intensify the ambient glow.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="#shop" class="w-full sm:w-auto bg-crimsonRed/90 hover:bg-deepRed text-white px-8 py-4 rounded-xl font-bold tracking-wider transition-all shadow-[0_0_25px_rgba(255,30,56,0.4)] backdrop-blur-md text-center border border-red-500/30">
+                        EXPLORE DROP
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3D Canvas Container -->
+            <div class="relative flex items-center justify-center">
+                <div id="model-wrapper" class="floating-container relative w-full h-[380px] sm:h-[480px] flex items-center justify-center glass-card rounded-3xl transition-all duration-500 hover:border-crimsonRed hover:shadow-[0_0_50px_rgba(255,30,56,0.3)] overflow-hidden">
+                    <div id="canvas-container"></div>
+                    <div class="absolute bottom-4 left-4 glass-card px-3 py-1.5 rounded-lg text-xs tracking-wider text-gray-300 flex items-center space-x-2 pointer-events-none z-10 shadow-md">
+                        <span class="w-2 h-2 rounded-full bg-crimsonRed animate-pulse"></span>
+                        <span>INTERACTIVE 3D MODEL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT CATALOG SECTION -->
+    <section id="shop" class="py-20 glass-card border-t border-b border-red-900/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <h2 class="text-3xl sm:text-4xl font-black tracking-wider">THE COLLECTION</h2>
+                <div class="w-16 h-1 bg-crimsonRed mx-auto shadow-[0_0_10px_rgba(255,30,56,0.8)]"></div>
+                <p class="text-gray-400 text-sm">Crafted for modern urban ninjas. Limited stock available.</p>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="product-grid">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- BRAND LORE -->
+    <section id="about" class="py-20 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div class="space-y-6">
+                <span class="text-crimsonRed tracking-widest text-xs font-bold uppercase">DESIGN PHILOSOPHY</span>
+                <h3 class="text-3xl font-black tracking-wide">TRADITION MEETS CYBERPUNK</h3>
+                <p class="text-gray-400 leading-relaxed font-light">
+                    ZENSIGN draws inspiration from the silent discipline of feudal warriors and neon-drenched architecture. Each garment is engineered with high-density fabrics and stark color profiles.
+                </p>
+            </div>
+            <div class="glass-card p-8 rounded-3xl relative shadow-xl">
+                <p class="font-jp text-2xl text-gray-200 font-bold mb-4">「 影と精神 」</p>
+                <p class="text-gray-400 text-sm italic">"In the heart of the neon night, the spirit remains unyielding."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact" class="glass-card border-t border-red-900/20 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+            <div>
+                <span class="text-crimsonRed font-black text-xl tracking-widest">禅 SIGN</span>
+                <p class="text-xs text-gray-500 mt-1">© 2026 ZENSIGN APPAREL. ALL RIGHTS RESERVED.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART & CHECKOUT DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 overflow-hidden pointer-events-none transition-opacity duration-300 opacity-0">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10 pointer-events-none">
+            <div id="cart-panel" class="w-screen max-w-md glass-panel p-6 flex flex-col justify-between pointer-events-auto transform translate-x-full transition-transform duration-300 overflow-y-auto shadow-2xl">
+                <div>
+                    <div class="flex items-center justify-between pb-6 border-b border-red-900/30">
+                        <h3 id="drawer-title" class="font-bold text-lg tracking-wider text-white">YOUR CART</h3>
+                        <button onclick="toggleCart()" class="text-gray-400 hover:text-crimsonRed cursor-pointer transition-colors">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Dynamic Body Container -->
+                    <div id="drawer-body" class="mt-6 space-y-4">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Footer Summary / Action Controls -->
+                <div id="drawer-footer" class="pt-6 border-t border-red-900/30 space-y-4 mt-6">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        // --- 1. PRODUCT CATALOG DATA ---
+        const products = [
+            { 
+                id: 1, 
+                name: "SHADOW KANJI HEAVYWEIGHT TEE", 
+                originalPrice: 799.00,
+                price: 499.00, 
+                tag: "BESTSELLER", 
+                backImage: "assets/product-1-back.png",
+                frontImage: "assets/product-1-front.png"
+            },
+            { 
+                id: 2, 
+                name: "BLOOD MOON TOKYO OVERSIZED TEE", 
+                originalPrice: 799.00,
+                price: 499.00, 
+                tag: "LIMITED", 
+                backImage: "assets/product-2-back.png",
+                frontImage: "assets/product-2-front.png"
+            },
+            { 
+                id: 3, 
+                name: "SAMURAI DRIFT GRAPHIC TEE", 
+                originalPrice: 799.00,
+                price: 499.00, 
+                tag: "NEW", 
+                backImage: "assets/product-3-back.png",
+                frontImage: "assets/product-3-front.png"
+            }
+        ];
+
+        let cart = [];
+        let viewState = 'cart'; // 'cart', 'checkout', 'success'
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = products.map(p => `
+                <div class="glass-card rounded-3xl p-6 flex flex-col justify-between group hover:border-crimsonRed hover:scale-[1.03] hover:shadow-[0_0_35px_rgba(255,30,56,0.3)] transition-all duration-300 shadow-xl">
+                    <div class="relative bg-black/40 h-64 rounded-2xl flex items-center justify-center overflow-hidden border border-red-900/10 mb-6 backdrop-blur-sm">
+                        <span class="absolute top-3 left-3 bg-crimsonRed/90 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full font-bold tracking-wider z-10 shadow-md">${p.tag}</span>
+                        
+                        <!-- Back Image (Default View) -->
+                        <img src="${p.backImage}" alt="${p.name} Back" class="w-full h-full object-cover absolute inset-0 group-hover:opacity-0 transition-opacity duration-300">
+                        
+                        <!-- Front Image (Shows on Hover) -->
+                        <img src="${p.frontImage}" alt="${p.name} Front" class="w-full h-full object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-white tracking-wider mb-2">${p.name}</h3>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="text-crimsonRed font-bold text-xl drop-shadow-[0_0_8px_rgba(255,30,56,0.4)]">₹${p.price.toFixed(0)}/-</span>
+                            <span class="text-gray-500 line-through text-sm">₹${p.originalPrice.toFixed(0)}/-</span>
+                        </div>
+                        
+                        <!-- Size Selection -->
+                        <div class="mb-4">
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5">Select Size:</label>
+                            <div id="sizes-${p.id}" class="flex space-x-2">
+                                ${['S', 'M', 'L', 'XL', 'XXL'].map((size, idx) => `
+                                    <button onclick="selectSize(${p.id}, '${size}')" class="size-btn-${p.id} flex-1 py-1.5 text-xs font-bold rounded-lg border ${idx === 1 ? 'border-crimsonRed bg-crimsonRed/20 text-white shadow-[0_0_10px_rgba(255,30,56,0.3)]' : 'border-red-900/30 glass-card text-gray-300'} hover:border-crimsonRed transition-all cursor-pointer backdrop-blur-md" data-size="${size}">${size}</button>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="addToCart(${p.id})" class="w-full glass-btn text-gray-200 hover:text-white py-3 rounded-xl font-bold tracking-wider transition-all cursor-pointer shadow-md">
+                        ADD TO CART
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Active size storage helper tracker map
+        const selectedSizes = { 1: 'M', 2: 'M', 3: 'M' };
+        function selectSize(productId, size) {
+            selectedSizes[productId] = size;
+            const buttons = document.querySelectorAll(`.size-btn-${productId}`);
+            buttons.forEach(btn => {
+                if(btn.getAttribute('data-size') === size) {
+                    btn.className = `size-btn-${productId} flex-1 py-1.5 text-xs font-bold rounded-lg border border-crimsonRed bg-crimsonRed/20 text-white shadow-[0_0_10px_rgba(255,30,56,0.3)] transition-all cursor-pointer backdrop-blur-md`;
+                } else {
+                    btn.className = `size-btn-${productId} flex-1 py-1.5 text-xs font-bold rounded-lg border border-red-900/30 glass-card text-gray-300 hover:border-crimsonRed transition-all cursor-pointer backdrop-blur-md`;
+                }
+            });
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+            if (!drawer || !panel) return;
+
+            if (drawer.classList.contains('pointer-events-none')) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                panel.classList.remove('translate-x-full');
+                viewState = 'cart';
+                updateCartUI();
+            } else {
+                drawer.classList.add('opacity-0');
+                panel.classList.add('translate-x-full');
+                setTimeout(() => drawer.classList.add('pointer-events-none'), 300);
+            }
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const chosenSize = selectedSizes[productId] || 'M';
+            const cartKey = `${productId}-${chosenSize}`;
+            
+            const existing = cart.find(item => item.cartKey === cartKey);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, size: chosenSize, cartKey, qty: 1 });
+            }
+            updateCartUI();
+            
+            // Open drawer to display updated cart list
+            const drawer = document.getElementById('cart-drawer');
+            const panel = document.getElementById('cart-panel');
+            if (drawer && panel) {
+                drawer.classList.remove('pointer-events-none', 'opacity-0');
+                panel.classList.remove('translate-x-full');
+            }
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const titleEl = document.getElementById('drawer-title');
+            const bodyContainer = document.getElementById('drawer-body');
+            const footerContainer = document.getElementById('drawer-footer');
+            if (!badge || !titleEl || !bodyContainer || !footerContainer) return;
+
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+
+            if (totalCount > 0) {
+                badge.textContent = totalCount;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            if (viewState === 'cart') {
+                titleEl.textContent = 'YOUR CART';
+                if (cart.length === 0) {
+                    bodyContainer.innerHTML = `<p class="text-gray-500 text-center py-12 text-sm">YOUR CART IS EMPTY</p>`;
+                    footerContainer.innerHTML = '';
+                } else {
+                    bodyContainer.innerHTML = cart.map(item => `
+                        <div class="flex items-center justify-between glass-card p-4 rounded-xl shadow-md">
+                            <div>
+                                <h4 class="text-xs font-bold text-white">${item.name}</h4>
+                                <p class="text-xs text-gray-400 mt-0.5">Size: <span class="text-crimsonRed font-semibold">${item.size}</span></p>
+                                <p class="text-crimsonRed text-sm mt-1">₹${item.price.toFixed(0)}/- x ${item.qty}</p>
+                            </div>
+                            <button onclick="removeFromCart('${item.cartKey}')" class="text-gray-400 hover:text-crimsonRed cursor-pointer transition-colors">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    `).join('');
+
+                    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                    footerContainer.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-400 text-sm">SUBTOTAL:</span>
+                            <span class="text-crimsonRed font-bold text-xl drop-shadow-[0_0_8px_rgba(255,30,56,0.4)]">₹${subtotal.toFixed(0)}/-</span>
+                        </div>
+                        <button onclick="proceedToCheckout()" class="w-full bg-crimsonRed hover:bg-deepRed text-white py-4 rounded-xl font-bold tracking-wider transition-colors cursor-pointer shadow-[0_0_20px_rgba(255,30,56,0.3)] backdrop-blur-md">
+                            PROCEED TO CHECKOUT
+                        </button>
+                    `;
+                }
+            }
+        }
+
+        function removeFromCart(cartKey) {
+            cart = cart.filter(item => item.cartKey !== cartKey);
+            updateCartUI();
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) return;
+            viewState = 'checkout';
+            
+            const titleEl = document.getElementById('drawer-title');
+            const bodyContainer = document.getElementById('drawer-body');
+            const footerContainer = document.getElementById('drawer-footer');
+            
+            titleEl.textContent = 'CHECKOUT DETAILS';
+            
+            bodyContainer.innerHTML = `
+                <form id="checkout-form" onsubmit="handleOrderSubmission(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Full Name</label>
+                        <input type="text" id="cust-name" required class="w-full glass-card rounded-xl px-4 py-3 text-sm text-white focus:border-crimsonRed outline-none backdrop-blur-md" placeholder="Sriram Komati">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Phone Number</label>
+                            <input type="tel" id="cust-phone" required class="w-full glass-card rounded-xl px-4 py-3 text-sm text-white focus:border-crimsonRed outline-none backdrop-blur-md" placeholder="+91...">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Email Address</label>
+                            <input type="email" id="cust-email" required class="w-full glass-card rounded-xl px-4 py-3 text-sm text-white focus:border-crimsonRed outline-none backdrop-blur-md" placeholder="name@domain.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Full Address</label>
+                        <textarea id="cust-address" rows="3" required class="w-full glass-card rounded-xl px-4 py-3 text-sm text-white focus:border-crimsonRed outline-none backdrop-blur-md" placeholder="House No, Street, City, Pincode"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 uppercase mb-1.5">Payment Method</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="flex items-center space-x-2 glass-card p-3 rounded-xl cursor-pointer hover:border-crimsonRed backdrop-blur-md transition-all">
+                                <input type="radio" name="pay-method" value="Prepaid" checked onchange="togglePaymentView()" class="accent-crimsonRed">
+                                <span class="text-xs font-bold text-white">Prepaid (QR UPI)</span>
+                            </label>
+                            <label class="flex items-center space-x-2 glass-card p-3 rounded-xl cursor-pointer hover:border-crimsonRed backdrop-blur-md transition-all">
+                                <input type="radio" name="pay-method" value="COD" onchange="togglePaymentView()" class="accent-crimsonRed">
+                                <span class="text-xs font-bold text-white">COD (+₹49)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Prepaid QR Section -->
+                    <div id="prepaid-section" class="glass-card p-4 rounded-2xl text-center space-y-3 backdrop-blur-md">
+                        <p class="text-xs text-gray-400">Scan QR Code to Pay via GPay / PhonePe / Paytm</p>
+                        <div class="w-40 h-40 mx-auto bg-black/40 border border-red-900/30 rounded-xl overflow-hidden flex items-center justify-center p-2 backdrop-blur-sm">
+                            <img src="assets/payment-qr.png" alt="Payment QR Code" class="w-full h-full object-contain">
+                        </div>
+                        <p class="text-[11px] text-gray-400">UPI ID: <span class="text-white font-mono">store@upi</span></p>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase mb-1 text-left">Enter UTR / Transaction ID</label>
+                            <input type="text" id="cust-utr" class="w-full glass-card rounded-xl px-4 py-2.5 text-sm text-white focus:border-crimsonRed outline-none font-mono backdrop-blur-md" placeholder="123456789012">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-crimsonRed hover:bg-deepRed text-white py-4 rounded-xl font-bold tracking-wider transition-colors cursor-pointer mt-4 shadow-[0_0_20px_rgba(255,30,56,0.3)] backdrop-blur-md">
+                        CONFIRM & PLACE ORDER
+                    </button>
+                </form>
+            `;
+            footerContainer.innerHTML = `
+                <button onclick="updateCartUI()" class="w-full glass-btn text-gray-300 hover:text-white py-2.5 rounded-xl text-xs font-bold tracking-wider cursor-pointer shadow-sm">
+                    ← Back to Cart
+                </button>
+            `;
+        }
+
+        function togglePaymentView() {
+            const method = document.querySelector('input[name="pay-method"]:checked').value;
+            const prepaidSection = document.getElementById('prepaid-section');
+            if (method === 'COD') {
+                prepaidSection.classList.add('hidden');
+                document.getElementById('cust-utr').required = false;
+            } else {
+                prepaidSection.classList.remove('hidden');
+                document.getElementById('cust-utr').required = true;
+            }
+        }
+
+        function handleOrderSubmission(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('cust-name').value;
+            const phone = document.getElementById('cust-phone').value;
+            const email = document.getElementById('cust-email').value;
+            const address = document.getElementById('cust-address').value;
+            const paymentMethod = document.querySelector('input[name="pay-method"]:checked').value;
+            const utr = paymentMethod === 'Prepaid' ? document.getElementById('cust-utr').value : 'N/A (Cash on Delivery)';
+            
+            const orderId = 'ZEN-' + Math.floor(100000 + Math.random() * 900000);
+            
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const codFee = paymentMethod === 'COD' ? 49 : 0;
+            const grandTotal = subtotal + codFee;
+
+            let itemsSummary = cart.map(item => `- ${item.name} (Size: ${item.size}) x ${item.qty} = ₹${(item.price * item.qty).toFixed(0)}`).join('\n');
+
+            // Format data payload for email review transmission
+            const emailSubject = encodeURIComponent(`New Order Confirmation [${orderId}]`);
+            const emailBody = encodeURIComponent(
+                `New Order Received!\n\n` +
+                `Order ID: ${orderId}\n` +
+                `Payment Type: ${paymentMethod}\n` +
+                `UTR / Transaction ID: ${utr}\n\n` +
+                `--- CUSTOMER DETAILS ---\n` +
+                `Name: ${name}\n` +
+                `Phone: ${phone}\n` +
+                `Email: ${email}\n` +
+                `Address:\n${address}\n\n` +
+                `--- ORDER ITEMS ---\n` +
+                `${itemsSummary}\n\n` +
+                `Subtotal: ₹${subtotal.toFixed(0)}/-\n` +
+                `COD Fee: ₹${codFee}/-\n` +
+                `Total Amount: ₹${grandTotal.toFixed(0)}/-\n`
+            );
+
+            // Trigger mail client launch pre-filled with order specs
+            window.location.href = `mailto:sriramkomati2002@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+
+            // Show confirmation screen view
+            viewState = 'success';
+            const titleEl = document.getElementById('drawer-title');
+            const bodyContainer = document.getElementById('drawer-body');
+            const footerContainer = document.getElementById('drawer-footer');
+
+            titleEl.textContent = 'ORDER PLACED SUCCESSFULLY';
+            bodyContainer.innerHTML = `
+                <div class="glass-card p-6 rounded-2xl text-center space-y-4 backdrop-blur-md shadow-xl">
+                    <div class="w-12 h-12 rounded-full bg-crimsonRed/20 border border-crimsonRed flex items-center justify-center mx-auto text-crimsonRed shadow-[0_0_15px_rgba(255,30,56,0.4)]">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h4 class="text-white font-bold text-base tracking-wider">THANK YOU FOR YOUR ORDER!</h4>
+                    <p class="text-xs text-gray-400">Your Order ID is <span class="text-crimsonRed font-mono font-bold">${orderId}</span></p>
+                    <p class="text-xs text-gray-400 leading-relaxed">Your order summary has been compiled and opened in your email client to dispatch to the store administrator for review and fulfillment confirmation.</p>
+                </div>
+            `;
+            footerContainer.innerHTML = `
+                <button onclick="cart = []; updateCartUI(); toggleCart();" class="w-full bg-crimsonRed hover:bg-deepRed text-white py-4 rounded-xl font-bold tracking-wider transition-colors cursor-pointer shadow-[0_0_20px_rgba(255,30,56,0.3)] backdrop-blur-md">
+                    RETURN TO STORE
+                </button>
+            `;
+        }
+
+        // --- 2. 3D T-SHIRT RENDERING SYSTEM ---
+        function init3D() {
+            const container = document.getElementById('canvas-container');
+            if (!container) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 5.5;
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+
+            const redLight = new THREE.PointLight(0xff1e38, 2.5, 10);
+            redLight.position.set(3, 2, 3);
+            scene.add(redLight);
+
+            const tshirtGroup = new THREE.Group();
+            const fabricMaterial = new THREE.MeshStandardMaterial({ color: 0x121217, roughness: 0.8, metalness: 0.2 });
+            const accentMaterial = new THREE.MeshStandardMaterial({ color: 0xff1e38, roughness: 0.5, metalness: 0.4 });
+
+            const torso = new THREE.Mesh(new THREE.BoxGeometry(1.6, 2.1, 0.6), fabricMaterial);
+            tshirtGroup.add(torso);
+
+            const sleeveGeo = new THREE.BoxGeometry(0.8, 0.6, 0.5);
+            const leftSleeve = new THREE.Mesh(sleeveGeo, fabricMaterial);
+            leftSleeve.position.set(-1.1, 0.7, 0); leftSleeve.rotation.z = -Math.PI / 8;
+            tshirtGroup.add(leftSleeve);
+
+            const rightSleeve = new THREE.Mesh(sleeveGeo, fabricMaterial);
+            rightSleeve.position.set(1.1, 0.7, 0); rightSleeve.rotation.z = Math.PI / 8;
+            tshirtGroup.add(rightSleeve);
+
+            const collar = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.15, 0.62), accentMaterial);
+            collar.position.set(0, 1.02, 0);
+            tshirtGroup.add(collar);
+
+            const badge = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.05), accentMaterial);
+            badge.position.set(0, 0.3, 0.32);
+            tshirtGroup.add(badge);
+
+            scene.add(tshirtGroup);
+
+            // Intense Red Light Hover Effect on Wrapper
+            const modelWrapper = document.getElementById('model-wrapper');
+            if (modelWrapper) {
+                modelWrapper.addEventListener('mouseenter', () => { redLight.intensity = 5.5; });
+                modelWrapper.addEventListener('mouseleave', () => { redLight.intensity = 2.5; });
+            }
+
+            // Robust Mouse & Touch Drag Rotation Logic
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+
+            container.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.clientX - previousMousePosition.x;
+                tshirtGroup.rotation.y += deltaX * 0.008;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener('mouseup', () => { isDragging = false; });
+
+            // Mobile Touch Events
+            container.addEventListener('touchstart', (e) => {
+                if(e.touches.length > 0) {
+                    isDragging = true;
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging || e.touches.length === 0) return;
+                const deltaX = e.touches[0].clientX - previousMousePosition.x;
+                tshirtGroup.rotation.y += deltaX * 0.008;
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }, { passive: true });
+
+            window.addEventListener('touchend', () => { isDragging = false; });
+
+            window.addEventListener('resize', () => {
+                if (!container) return;
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+                if (!isDragging) {
+                    tshirtGroup.rotation.y += 0.005;
+                }
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        // Initialize everything safely on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            init3D();
+        });
+    </script>
+</body>
+</html>
